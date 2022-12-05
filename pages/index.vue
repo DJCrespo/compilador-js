@@ -24,6 +24,7 @@
     <div class="card mt-3">
       <div class="card-content">
         <lexemas :text="message"></lexemas>
+        <triplos :text="message"></triplos>
       </div>
     </div>
   </section>
