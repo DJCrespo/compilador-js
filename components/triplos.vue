@@ -43,6 +43,10 @@ export default {
     text: {
       type: String,
       default: ''
+    },
+    optimization: {
+      type: Array,
+      default: null
     }
   },
   data () {
@@ -89,19 +93,41 @@ export default {
       this.operationsAfter = []
       this.i = 0
       this.getTriplos(newText)
+    },
+    optimization (newValue) {
+      this.triplos = []
+      this.varCar = []
+      this.varEnt = []
+      this.varCad = []
+      this.operationsAfter = []
+      this.i = 0
+      this.getTriplos(newValue)
     }
   },
   methods: {
-    getTriplos (text) {
-      this.linesAnalyze = text.split('\n')
-      this.linesAnalyze.forEach((line, linePosition) => {
-        const words = line.split(' ')
-        this.tipo = ''
-        words.forEach((word, wordPosition) => {
-          this.getVar(words, word, wordPosition, linePosition)
-          // console.log(res)
+    getTriplos (value) {
+      if (typeof value === 'string') {
+        this.linesAnalyze = value.split('\n')
+        this.linesAnalyze.forEach((line, linePosition) => {
+          const words = line.split(' ')
+          this.tipo = ''
+          words.forEach((word, wordPosition) => {
+            this.getVar(words, word, wordPosition, linePosition)
+          })
         })
-      })
+      } else {
+        value.forEach((line, linePosition) => {
+          console.log(line)
+          if (line) {
+            const words = line.split(' ')
+            this.tipo = ''
+            words.forEach((word, wordPosition) => {
+              this.getVar(words, word, wordPosition, linePosition)
+            })
+          }
+        })
+      }
+      this.$emit('triplos', this.triplos)
     },
     getVar (words, word, wordPosition, linePosition) {
       let temporalWord

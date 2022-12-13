@@ -24,7 +24,8 @@
     <div class="card mt-3">
       <div class="card-content">
         <lexemas :text="message"></lexemas>
-        <triplos :text="message"></triplos>
+        <triplos :text="message" :optimization="optimizationAr"></triplos>
+        <optimizacion :text="message" @optimization="getValue"></optimizacion>
       </div>
     </div>
   </section>
@@ -35,7 +36,25 @@ export default {
   name: 'IndexPage',
   data () {
     return {
-      message: null
+      message: null,
+      optimizationAr: []
+    }
+  },
+  methods: {
+    getValue ({ array, count }) {
+      this.$swal({
+        title: 'Optimizaciones disponibles: ' + count,
+        text: '¿Deseas aplicar la optimización?',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        cancelButtonText: 'No',
+        confirmButtonText: 'Si'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.optimizationAr = array
+        }
+      })
     }
   }
 }
