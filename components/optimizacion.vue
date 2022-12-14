@@ -24,7 +24,7 @@ export default {
   name: 'optimizacionComponent',
   props: {
     text: {
-      tpye: String,
+      type: String,
       default: ''
     },
     triplos: {

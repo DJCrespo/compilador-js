@@ -115,7 +115,10 @@ export default {
             this.getVar(words, word, wordPosition, linePosition)
           })
         })
-      } else {
+        const element = this.triplos.findIndex(x => x.DF === 'FALSE' && !x.OP)
+        const lastElement = this.triplos[this.triplos.length - 1]
+        this.triplos[element].OP = lastElement.line
+      } else if (value) {
         value.forEach((line, linePosition) => {
           console.log(line)
           if (line) {
@@ -126,6 +129,9 @@ export default {
             })
           }
         })
+        const element = this.triplos.findIndex(x => x.DF === 'FALSE' && !x.OP)
+        const lastElement = this.triplos[this.triplos.length - 1]
+        this.triplos[element].OP = lastElement.line
       }
       this.$emit('triplos', this.triplos)
     },
@@ -160,7 +166,7 @@ export default {
           // eslint-disable-next-line
         } else if (temporalWord.match('\}')) {
           const index = this.triplos.findIndex(x => x.OP == null)
-          // console.log(this.triplos[index])
+          console.log(this.triplos[index])
           this.triplos.push({
             line: this.i + 1,
             DO: '',
@@ -405,6 +411,7 @@ export default {
       // Final
       if (!wordsBefore[0].match(OpWhile)) {
         const ultimate = this.triplos.pop()
+        console.log('ultimate: ', ultimate)
         this.triplos.push(ultimate)
         this.triplos.push({
           line: this.i,

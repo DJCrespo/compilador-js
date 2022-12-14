@@ -24,8 +24,9 @@
     <div class="card mt-3">
       <div class="card-content">
         <lexemas :text="message"></lexemas>
-        <triplos :text="message" :optimization="optimizationAr"></triplos>
+        <triplos :text="message" :optimization="optimizationAr" @triplos="getTriplos"></triplos>
         <optimizacion :text="message" @optimization="getValue"></optimizacion>
+        <ensamblador :triplos="triplosAr"></ensamblador>
       </div>
     </div>
   </section>
@@ -37,7 +38,8 @@ export default {
   data () {
     return {
       message: null,
-      optimizationAr: []
+      optimizationAr: [],
+      triplosAr: []
     }
   },
   methods: {
@@ -55,6 +57,9 @@ export default {
           this.optimizationAr = array
         }
       })
+    },
+    getTriplos (value) {
+      this.triplosAr = value
     }
   }
 }
